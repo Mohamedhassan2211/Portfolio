@@ -29,11 +29,24 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             background: var(--darker);
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* Scroll Progress Indicator */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--scroll-progress, 0%);
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 9999;
+            transition: width 0.1s ease-out;
         }
 
         .bg-animation {
@@ -107,6 +120,7 @@
         nav.scrolled {
             background: rgba(15, 23, 42, 0.95);
             box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
+            padding: 0.8rem 0;
         }
 
         nav .container {
@@ -120,6 +134,7 @@
             font-weight: 900;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -189,9 +204,10 @@
 
         .hero h1 {
             font-size: 5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #ffffff, var(--primary), var(--accent));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 900;
             line-height: 1.1;
@@ -199,6 +215,15 @@
         }
 
         @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }        @keyframes slideUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
@@ -206,12 +231,10 @@
         .hero .subtitle {
             font-size: 2rem;
             color: var(--gray);
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             font-weight: 600;
             animation: slideUp 1s ease-out 0.4s both;
-        }
-
-        .hero .experience-badge {
+        }        .hero .experience-badge {
             display: inline-block;
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.3);
@@ -223,13 +246,18 @@
             animation: fadeIn 1s ease-out 0.5s both;
         }
 
-        .hero .description {
-            max-width: 750px;
+                .hero .description {
+            max-width: 700px;
             margin: 0 auto 3rem;
             color: var(--gray);
             font-size: 1.2rem;
             line-height: 1.8;
             animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes fadeIn {
@@ -243,10 +271,7 @@
             justify-content: center;
             margin-top: 3rem;
             animation: fadeIn 1s ease-out 0.8s both;
-            flex-wrap: wrap;
-        }
-
-        .btn {
+        }        .btn {
             padding: 1rem 2.5rem;
             border-radius: 12px;
             text-decoration: none;
@@ -292,6 +317,45 @@
             box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5);
         }
 
+        /* Download CV Button Enhancements */
+        .btn-download {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-download:hover::before {
+            left: 100%;
+        }
+
+        .download-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            z-index: 10000;
+            transition: width 0.3s ease;
+        }
+
+        .download-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .social-links {
             display: flex;
             gap: 1.5rem;
@@ -315,7 +379,7 @@
             transition: all 0.3s;
         }
 
-        .social-links a:hover {
+                .social-links a:hover {
             transform: translateY(-5px) scale(1.1);
             background: var(--primary);
             color: white;
@@ -328,6 +392,51 @@
             position: relative;
         }
 
+        /* Scroll Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s ease-out;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
         .section-title {
             font-size: 3.5rem;
             text-align: center;
@@ -335,6 +444,7 @@
             font-weight: 900;
             background: linear-gradient(135deg, var(--light), var(--primary));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -347,13 +457,46 @@
 
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(50px);
             transition: all 0.8s ease-out;
         }
 
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s ease-out;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* About Section */
@@ -770,6 +913,9 @@
     </style>
 </head>
 <body>
+    <!-- Download Progress Bar -->
+    <div class="download-progress" id="downloadProgress"></div>
+
     <div class="bg-animation">
         <div class="floating-shape shape1"></div>
         <div class="floating-shape shape2"></div>
@@ -809,9 +955,21 @@
                 <a href="#contact" class="btn btn-outline">
                     <span>Get In Touch</span>
                 </a>
-                <a href="#" class="btn btn-success">
-                    <span>📄 Download CV</span>
-                </a>
+                <div class="download-options">
+                    <a href="assets/Mohamed_Hassan_Attia_CV.pdf" 
+                       target="_blank" 
+                       class="btn btn-outline"
+                       title="View CV in new tab">
+                        <span>👁️ View CV</span>
+                    </a>
+                    <a href="assets/Mohamed_Hassan_Attia_CV.pdf" 
+                       download="Mohamed_Hassan_Attia_CV.pdf" 
+                       class="btn btn-success btn-download"
+                       id="downloadCV"
+                       title="Download CV as PDF">
+                        <span>� Download CV</span>
+                    </a>
+                </div>
             </div>
             <div class="social-links">
                 <a href="https://github.com/Mohamedhassan2211" target="_blank" aria-label="GitHub Profile">🐙</a>
@@ -1190,33 +1348,45 @@
     </footer>
 
     <script>
-        // Scroll animations
+        // Scroll animations with multiple effects
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+            entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    // Add staggered delay for elements
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Observe all animation elements
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
+        // Navbar scroll effect with smooth transition
+        const navbar = document.querySelector('nav');
+        let lastScroll = 0;
+        
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
+            
+            lastScroll = currentScroll;
         });
 
-        // Smooth scrolling
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1229,6 +1399,67 @@
                 }
             });
         });
+
+        // Add parallax effect to floating shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.floating-shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Progress indicator on scroll
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            // You can add a progress bar element if needed
+            document.documentElement.style.setProperty('--scroll-progress', scrolled + '%');
+        });
+
+        // CV Download Enhancement
+        const downloadBtn = document.getElementById('downloadCV');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', function(e) {
+                const progressBar = document.getElementById('downloadProgress');
+                const originalText = this.innerHTML;
+                
+                // Show download animation
+                this.innerHTML = '<span>⏳ Preparing Download...</span>';
+                progressBar.style.width = '50%';
+                
+                setTimeout(() => {
+                    progressBar.style.width = '100%';
+                    this.innerHTML = '<span>✅ Downloaded!</span>';
+                    
+                    setTimeout(() => {
+                        progressBar.style.width = '0';
+                        this.innerHTML = originalText;
+                    }, 1500);
+                }, 800);
+            });
+        }
+
+        // Smart Download Detection for Mobile/Desktop
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || 
+                   (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        // Optional: Add download tracking
+        function trackDownload() {
+            console.log('CV Downloaded at:', new Date().toLocaleString());
+            // يمكن إضافة Google Analytics tracking هنا
+        }
+
+        // Add event listener for tracking
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', trackDownload);
+        }
     </script>
 </body>
 </html>
