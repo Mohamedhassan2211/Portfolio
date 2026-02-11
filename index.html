@@ -463,6 +463,14 @@
             animation: fadeIn 1.2s ease-out 0.3s both;
         }
 
+        .hero-visual-mobile {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem 0;
+            animation: fadeIn 1.2s ease-out 0.3s both;
+        }
+
         .profile-photo-wrapper {
             position: relative;
             width: 320px;
@@ -1476,7 +1484,8 @@
             }
 
             .hero-content { order: 1; }
-            .hero-visual { order: 2; }
+            .hero-visual { display: none; }
+            .hero-visual-mobile { display: flex; }
 
             .hero .description {
                 max-width: 100%;
@@ -1525,59 +1534,9 @@
                 padding-bottom: 2rem;
             }
 
-            .hero-grid {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .hero-content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-
-            .hero h1 { 
-                font-size: 2.2rem; 
-                letter-spacing: -1px;
-                order: 1;
-                margin-bottom: 1.5rem;
-            }
-
-            .hero-visual {
-                order: 2;
-                margin: 0 0 1.5rem 0;
-            }
-
-            .hero .subtitle { 
-                font-size: 1.1rem;
-                order: 3;
-                margin-bottom: 0.5rem;
-            }
-
-            .hero .experience-badge {
-                order: 4;
-            }
-
-            .hero .description { 
-                font-size: 0.95rem; 
-                line-height: 1.7;
-                order: 5;
-            }
-
-            .cta-buttons {
-                order: 6;
-            }
-
-            .social-links {
-                order: 7;
-            }
-
-            .hero-badge {
-                order: 0;
-            }
+            .hero h1 { font-size: 2.2rem; letter-spacing: -1px; }
+            .hero .subtitle { font-size: 1.1rem; }
+            .hero .description { font-size: 0.95rem; line-height: 1.7; }
 
             .profile-photo-wrapper { width: 220px; height: 220px; }
 
@@ -1692,6 +1651,15 @@
                     </div>
                     <h1>Mohamed Hassan Attia</h1>
                     <p class="subtitle">Full Stack Developer</p>
+                    
+                    <!-- Mobile-only photo (appears after name on mobile) -->
+                    <div class="hero-visual-mobile">
+                        <div class="profile-photo-wrapper">
+                            <img src="assets/MO.png" alt="Mohamed Hassan Attia" class="profile-photo" loading="eager">
+                            <div class="profile-status"></div>
+                        </div>
+                    </div>
+                    
                     <div class="experience-badge">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                         2+ Years Professional Experience
